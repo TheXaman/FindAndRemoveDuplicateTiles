@@ -71,21 +71,21 @@ def analyzeTileset(tileset):
                 continue
             if (np.array_equal(test_val, data_normal[j])):
                 if ((j>i) and (i < unique[j][0])):
-                    unique[j] = [i, 'D']
+                    unique[j] = ['D', i]
             elif (np.array_equal(test_val, data_flip_x[j])):
                 if ((j>i) and (i < unique[j][0])):
-                    unique[j] = [i, 'x']
+                    unique[j] = ['X', i]
             elif (np.array_equal(test_val, data_flip_y[j])):
                 if ((j>i) and (i < unique[j][0])):
-                    unique[j] = [i, 'x']
+                    unique[j] = ['Y', i]
             elif (np.array_equal(test_val, data_flip_x_y[j])):
                 if ((j>i) and (i < unique[j][0])):
-                    unique[j] = [i, 'xy']
+                    unique[j] = ['XY', i]
     
     #replace unique values with a u (for readability)
     for i in range(tiles):
         if unique[i][0] == 999:
-            unique[i] = 'u'+str(math.floor(i/16))+'/'+str(i%16)
+            unique[i] = ['u', str(math.floor(i/16))+'/'+str(i%16)]
     #print(unique)
 
     return data_normal, tiles, unique
@@ -96,7 +96,7 @@ def makeReducedTileset(tileset_base, tiles, unique):
     #if unique tile add to list
     tileset_new = list()
     for i in range(tiles):
-        if (unique[i] == 'u'):
+        if (unique[i][0] == 'u'):
             tileset_new.append(tileset_base[i])
 
     #determine amount of new tiles
