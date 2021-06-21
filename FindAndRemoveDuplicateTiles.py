@@ -85,7 +85,7 @@ def analyzeTileset(tileset):
     #replace unique values with a u (for readability)
     for i in range(tiles):
         if unique[i][0] == 999:
-            unique[i] = 'u'
+            unique[i] = 'u'+str(math.floor(i/16))+'/'+str(i%16)
     #print(unique)
 
     return data_normal, tiles, unique
@@ -122,12 +122,10 @@ def makeReducedTileset(tileset_base, tiles, unique):
 
     #change shape to a 16 x tiles_y
     b = a[0:8,0:128]
-    print(b.shape)
     for i in range(tiles_y-1):
         start = 128+i*128
         end = 256+i*128
         b = np.concatenate((b, a[0:8,start:end]), axis=0)    
-    #print(b.shape)
 
 
     #convert numpy array to image
@@ -138,6 +136,7 @@ def makeReducedTileset(tileset_base, tiles, unique):
     
 def main():
     tileset_base, tiles, unique = analyzeTileset('./tiles.png')
+    print(unique)
     makeReducedTileset(tileset_base, tiles, unique)
 
 
